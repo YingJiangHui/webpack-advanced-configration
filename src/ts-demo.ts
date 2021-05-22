@@ -1,2 +1,1 @@
-const aaa = 'hi ts'
-export default aaa
+window.console.log('a');
