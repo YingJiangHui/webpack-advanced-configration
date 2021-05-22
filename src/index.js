@@ -1,12 +1,7 @@
-import b from './b'
-import jsxDemo from './jsx-demo.jsx'
-const c =
-    import ('./b')
+import aaa from './ts-demo.ts'
+
 
 const hi = () => {
-    console.log(c)
-    console.log(b)
-    console.log(Promise.resolve('success'))
-    console.log(jsxDemo)
+    console.log(aaa);
 }
 hi()
