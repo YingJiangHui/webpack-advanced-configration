@@ -1,0 +1,15 @@
+{
+    "name": "config-example",
+    "version": "1.0.0",
+    "description": "webpack config example",
+    "main": "index.js",
+    "author": "ying",
+    "license": "MIT",
+    "scripts": {
+        "build": "webpack"
+    },
+    "devDependencies": {
+        "webpack": "^5.37.1",
+        "webpack-cli": "^4.7.0"
+    }
+}
