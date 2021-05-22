@@ -1,5 +1,9 @@
+const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
     mode: 'production',
+    plugins: [new ESLintPlugin({
+        extensions:['.js','.jsx']
+    })],
     module: {
         rules: [{
             test: /\.jsx$/,
