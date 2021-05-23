@@ -1,6 +1,7 @@
 import aaa from '@src/ts-demo.ts'
 import {y} from '@src/a.js'
 import TsxDemo from './tsx-demo.tsx'
+import '@src/css.scss'
 console.log(y)
 const hi = () => {
     console.log(aaa);
