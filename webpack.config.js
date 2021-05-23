@@ -32,7 +32,17 @@ module.exports = {
                 // Translates CSS into CommonJS
                 "css-loader",
                 // Compiles Sass to CSS
-                "sass-loader",
+                {
+                    loader:"sass-loader",
+                    options:{
+                        additionalData:`
+                        @import "~@src/scss-vars.scss";
+                        `,
+                        sassOptions:{
+                            includePaths:[__dirname]
+                        }
+                    }
+                },
             ],
         },]
     }
