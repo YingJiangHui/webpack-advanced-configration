@@ -21,9 +21,12 @@ const cssLoaders = (loader) => {
 }
 module.exports = {
   mode: 'production',
+  output:{
+    filename:"[name].[contenthash].js"
+  },
   plugins: [new ESLintPlugin({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
-  }),new MiniCssExtractPlugin()],
+  }),new MiniCssExtractPlugin({filename:"[name].[contenthash].css"})],
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src')
