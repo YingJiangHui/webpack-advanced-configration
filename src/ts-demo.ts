@@ -1,1 +1,1 @@
-window.console.log('a');
+export default 'abcd';
