@@ -1,5 +1,24 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
 const path = require('path')
+
+const cssLoaders = (...loader) => {
+  return [
+    // Creates `style` nodes from JS strings
+    "style-loader",
+    // Translates CSS into CommonJS
+    {
+      loader: "css-loader",
+      options: {
+        modules: {
+          //The module handles class and id scoping and @value values. The icss will only compile the low level Interoperable CSS format for declaring :import and :export dependencies between CSS and other languages.
+          compileType: "module"
+        }
+      }
+    },
+    ...loader
+  ]
+}
+
 module.exports = {
   mode: 'production',
   plugins: [new ESLintPlugin({
@@ -26,77 +45,41 @@ module.exports = {
       }
     }, {
       test: /\.s[ac]ss$/i,
-      use: [
-        // Creates `style` nodes from JS strings
-        "style-loader",
-        // Translates CSS into CommonJS
-        {
-          loader: "css-loader",
-          options: {
-            modules: {
-              //The module handles class and id scoping and @value values. The icss will only compile the low level Interoperable CSS format for declaring :import and :export dependencies between CSS and other languages.
-              compileType: "module"
-            }
-          }
-        },
-        // Compiles Sass to CSS
-        {
-          loader: "sass-loader",
-          options: {
-            additionalData: `
+      use: cssLoaders({
+        loader: "sass-loader",
+        options: {
+          additionalData: `
                         @import "~@src/scss-vars.scss";
                         `,
-            sassOptions: {
-              includePaths: [__dirname]
-            },
-            
-          }
-        },
-      ],
+          sassOptions: {
+            includePaths: [__dirname]
+          },
+          
+        }
+      }),
     },
       {
         test: /\.less$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          {
-            loader: "css-loader",
-            options: {
-              modules: {
-                compileType: "module"
-              }
-            }
-          },
-          // Compiles Sass to CSS
-          {
-            loader: "less-loader",
-            options: {
-              additionalData: `
+        use: cssLoaders({
+          loader: "less-loader",
+          options: {
+            additionalData: `
                         @import "~@src/less-vars.less";
                         `,
-            }
-          },
-        ],
+          }
+        })
       },
       {
         test: /\.styl$/,
-        use: ["style-loader", {
-          loader:"css-loader",
-          options: {
-            modules: {
-              compileType: "module"
-            }
-          }
-        },
+        use: cssLoaders(
           {
             loader: "stylus-loader",
-            options:{
-              stylusOptions:{
-                import:[path.resolve(__dirname,'src/stylus-vars.styl')]
+            options: {
+              stylusOptions: {
+                import: [path.resolve(__dirname, 'src/stylus-vars.styl')]
               }
             }
-          }]
+          })
       }
     ]
   }
