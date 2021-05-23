@@ -53,7 +53,33 @@ module.exports = {
           }
         },
       ],
-    },]
+    },
+      {
+        test: /\.less$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                compileType: "module"
+              }
+            }
+          },
+          // Compiles Sass to CSS
+          {
+            loader: "less-loader",
+            options: {
+              additionalData: `
+                        @import "~@src/less-vars.less";
+                        `,
+            }
+          },
+        ],
+      }
+    ]
   }
   
 }
