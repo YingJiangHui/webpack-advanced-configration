@@ -1,10 +1,11 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path')
 
-const cssLoaders = (...loader) => {
+const cssLoaders = (loader) => {
   return [
     // Creates `style` nodes from JS strings
-    "style-loader",
+    MiniCssExtractPlugin.loader,
     // Translates CSS into CommonJS
     {
       loader: "css-loader",
@@ -18,12 +19,11 @@ const cssLoaders = (...loader) => {
     ...loader
   ]
 }
-
 module.exports = {
   mode: 'production',
   plugins: [new ESLintPlugin({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
-  })],
+  }),new MiniCssExtractPlugin()],
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src')
@@ -45,7 +45,7 @@ module.exports = {
       }
     }, {
       test: /\.s[ac]ss$/i,
-      use: cssLoaders({
+      use: cssLoaders([{
         loader: "sass-loader",
         options: {
           additionalData: `
@@ -56,22 +56,22 @@ module.exports = {
           },
           
         }
-      }),
+      }]),
     },
       {
         test: /\.less$/i,
-        use: cssLoaders({
+        use: cssLoaders([{
           loader: "less-loader",
           options: {
             additionalData: `
                         @import "~@src/less-vars.less";
                         `,
           }
-        })
+        }])
       },
       {
         test: /\.styl$/,
-        use: cssLoaders(
+        use: cssLoaders([
           {
             loader: "stylus-loader",
             options: {
@@ -79,7 +79,7 @@ module.exports = {
                 import: [path.resolve(__dirname, 'src/stylus-vars.styl')]
               }
             }
-          })
+          }])
       }
     ]
   }
