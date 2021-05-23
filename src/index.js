@@ -1,5 +1,5 @@
-import aaa from '@/ts-demo.ts'
-import {y} from '@/a.js'
+import aaa from '@src/ts-demo.ts'
+import {y} from '@src/a.js'
 import TsxDemo from './tsx-demo.tsx'
 console.log(y)
 const hi = () => {
