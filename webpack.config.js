@@ -78,6 +78,25 @@ module.exports = {
             }
           },
         ],
+      },
+      {
+        test: /\.styl$/,
+        use: ["style-loader", {
+          loader:"css-loader",
+          options: {
+            modules: {
+              compileType: "module"
+            }
+          }
+        },
+          {
+            loader: "stylus-loader",
+            options:{
+              stylusOptions:{
+                import:[path.resolve(__dirname,'src/stylus-vars.styl')]
+              }
+            }
+          }]
       }
     ]
   }
