@@ -31,6 +31,18 @@ module.exports = {
       name: 'runtime',
     },
     moduleIds: 'deterministic',
+    splitChunks:{
+      minSize: 0,
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+          name:'vendor'
+        },
+      }
+    }
   },
   plugins: [
     new ESLintPlugin({
