@@ -25,6 +25,12 @@ module.exports = {
   output: {
     filename: "[name].[contenthash].js"
   },
+  optimization: {
+    minimize: true,
+    runtimeChunk: {
+      name: 'runtime',
+    },
+  },
   plugins: [
     new ESLintPlugin({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
