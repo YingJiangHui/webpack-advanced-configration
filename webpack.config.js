@@ -30,6 +30,7 @@ module.exports = {
     runtimeChunk: {
       name: 'runtime',
     },
+    moduleIds: 'deterministic',
   },
   plugins: [
     new ESLintPlugin({
