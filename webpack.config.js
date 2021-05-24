@@ -37,19 +37,29 @@ module.exports = {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
+          priority: 10,
           reuseExistingChunk: true,
           name:'vendor'
         },
+        common: {
+          minChunks:2,
+          priority: 5,
+          reuseExistingChunk: true,
+          name:'common'
+        },
       }
     }
+  },
+  entry:{
+    main:'./src/index.js',
+    admin:'./src/admin.js'
   },
   plugins: [
     new ESLintPlugin({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   }),
     new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
-    new HtmlWebpackPlugin()],
+    new HtmlWebpackPlugin({filename: "index.html", chunks: ['main']}), new HtmlWebpackPlugin({filename:'admin.html',chunks:['admin']})],
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src')
