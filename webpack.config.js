@@ -2,7 +2,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-
+const MoveToPublicPathWebpackPlugin = require('./plugins/move-to-public-path-webpack-plugin')
 const cssLoaders = (loader) => {
   return [
     // Creates `style` nodes from JS strings
@@ -55,6 +55,7 @@ module.exports = {
     admin:'./src/admin.js'
   },
   plugins: [
+    new MoveToPublicPathWebpackPlugin(),
     new ESLintPlugin({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   }),
