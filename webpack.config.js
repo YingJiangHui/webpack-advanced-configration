@@ -57,7 +57,7 @@ module.exports = {
   plugins: [
     new ESLintPlugin({
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      exclude:/node_modules/
+      exclude:'/node_modules/'
     }),
     new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
     new HtmlWebpackPlugin({filename: "index.html", chunks: ['main']}), new HtmlWebpackPlugin({
@@ -122,6 +122,12 @@ module.exports = {
           }])
       }
     ]
-  }
-  
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
+  },
 }
