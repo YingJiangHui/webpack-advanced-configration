@@ -28,10 +28,10 @@ module.exports = {
   optimization: {
     minimize: true,
     runtimeChunk: {
-      name: 'runtime',
+      name: 'runtime'
     },
     moduleIds: 'deterministic',
-    splitChunks:{
+    splitChunks: {
       minSize: 0,
       chunks: 'all',
       cacheGroups: {
@@ -39,28 +39,32 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           priority: 10,
           reuseExistingChunk: true,
-          name:'vendor'
+          name: 'vendor'
         },
         common: {
-          minChunks:2,
+          minChunks: 2,
           priority: 5,
           reuseExistingChunk: true,
-          name:'common'
+          name: 'common'
         },
       }
     }
   },
-  entry:{
-    main:'./src/index.js',
-    admin:'./src/admin.js'
+  entry: {
+    main: './src/index.js',
+    admin: './src/admin.js'
   },
   plugins: [
     new MoveToPublicPathWebpackPlugin(),
     new ESLintPlugin({
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
-  }),
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      exclude:'/node_modules/'
+    }),
     new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
-    new HtmlWebpackPlugin({filename: "index.html", chunks: ['main']}), new HtmlWebpackPlugin({filename:'admin.html',chunks:['admin']})],
+    new HtmlWebpackPlugin({filename: "index.html", chunks: ['main']}), new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      chunks: ['admin']
+    })],
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, './src')
@@ -119,6 +123,12 @@ module.exports = {
           }])
       }
     ]
-  }
-  
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
+  },
 }
